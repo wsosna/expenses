@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS expenses (
     id SERIAL NOT NULL,
     name VARCHAR(20),
     description TEXT,
+    price NUMERIC,
     PRIMARY KEY(id)
 );
 

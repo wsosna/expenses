@@ -1,8 +1,10 @@
 package org.wsosna.expenses.controller;
 
 import org.springframework.web.bind.annotation.*;
+import org.wsosna.expenses.dto.ExpenseRequest;
 import org.wsosna.expenses.entity.Expense;
 import org.wsosna.expenses.repository.ExpenseRepository;
+import org.wsosna.expenses.service.ExpenseManagementService;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +14,11 @@ import java.util.Optional;
 public class ExpensesController {
 
     private final ExpenseRepository expenseRepository;
+    private final ExpenseManagementService expenseManagementService;
 
-    public ExpensesController(final ExpenseRepository expenseRepository) {
+    public ExpensesController(final ExpenseRepository expenseRepository, ExpenseManagementService expenseManagementService) {
         this.expenseRepository = expenseRepository;
+        this.expenseManagementService = expenseManagementService;
     }
 
     @GetMapping
@@ -23,13 +27,25 @@ public class ExpensesController {
     }
 
     @PostMapping("/add")
-    public Expense addExpense(@RequestBody final Expense expense) {
-        expense.setId(null);
+    public Expense addExpense(@RequestBody final ExpenseRequest expenseRequest) {
+        Expense expense = new Expense(
+                expenseRequest.getName(),
+                expenseRequest.getDescription(),
+                expenseRequest.getPrice(),
+                expenseManagementService.mapToCategories(expenseRequest.getCategoryIds())
+        );
         return expenseRepository.save(expense);
     }
 
     @PostMapping("/update")
-    public Expense updateExpense(@RequestBody final Expense expense) {
+    public Expense updateExpense(@RequestBody final ExpenseRequest expenseRequest) {
+        Expense expense = new Expense(
+                expenseRequest.getId(),
+                expenseRequest.getName(),
+                expenseRequest.getDescription(),
+                expenseRequest.getPrice(),
+                expenseManagementService.mapToCategories(expenseRequest.getCategoryIds())
+        );
         return expenseRepository.save(expense);
     }
 

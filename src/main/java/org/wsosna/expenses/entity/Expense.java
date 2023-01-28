@@ -1,7 +1,9 @@
 package org.wsosna.expenses.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private BigDecimal price;
     private String description;
     @ManyToMany
     @JoinTable(
@@ -20,18 +23,20 @@ public class Expense {
             inverseJoinColumns = @JoinColumn(name = "id_category"))
     private List<Category> categories;
 
-    public Expense(Integer id, String name, String description, List<Category> categories) {
+    public Expense(Integer id, String name, String description, BigDecimal price, List<Category> categories) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.price = price;
         this.categories = categories;
     }
 
-    public Expense(Integer id, String name, String description) {
-        this.id = id;
+    public Expense(String name, String description, BigDecimal price, List<Category> categories) {
+        this.id = null;
         this.name = name;
         this.description = description;
-        this.categories = new ArrayList<>();
+        this.price = price;
+        this.categories = categories;
     }
 
     public Expense() {
@@ -59,6 +64,14 @@ public class Expense {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public List<Category> getCategories() {

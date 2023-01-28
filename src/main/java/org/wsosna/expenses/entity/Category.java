@@ -1,5 +1,6 @@
 package org.wsosna.expenses.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "categories")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -19,6 +21,7 @@ public class Category {
             name = "expenses_categories",
             joinColumns = @JoinColumn(name = "id_category"),
             inverseJoinColumns = @JoinColumn(name = "id_expense"))
+    @JsonIgnore
     private List<Expense> expenses;
 
     public Category(Integer id, String name, String color) {
