@@ -21,4 +21,4 @@ CREATE TABLE IF NOT EXISTS expenses_categories (
     CONSTRAINT FK_expense FOREIGN KEY(id_expense) REFERENCES expenses(id)
 );
 
-INSERT INTO categories (id, name, color) VALUES (1, 'rent', '#243DB6'), (2, 'bills', '#24B652'), (3, 'school', '#4E24B6');
+INSERT INTO categories (name, color) VALUES ('rent', '#243DB6'), ('bills', '#24B652'), ('school', '#4E24B6');

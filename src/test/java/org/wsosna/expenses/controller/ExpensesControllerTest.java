@@ -30,7 +30,7 @@ public class ExpensesControllerTest {
     }
 
     @Test
-    public void shouldAddCategoryAndReturnItWithoutExpenses() throws Exception {
+    public void shouldAddExpenseAndReturnIt() throws Exception {
         final String json = "{ \"name\": \"La Chula\", \"description\": \"Going out with friends\", " +
                 "\"price\": 120.56, \"categoryIds\": [2, 3] }";
 
