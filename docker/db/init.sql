@@ -20,3 +20,5 @@ CREATE TABLE IF NOT EXISTS expenses_categories (
     CONSTRAINT FK_category FOREIGN KEY(id_category) REFERENCES categories(id),
     CONSTRAINT FK_expense FOREIGN KEY(id_expense) REFERENCES expenses(id)
 );
+
+INSERT INTO categories (name, color) VALUES ('rent', '#243DB6'), ('bills', '#24B652'), ('school', '#4E24B6');
