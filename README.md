@@ -24,4 +24,10 @@ And run application with
 mvn spring-boot:run
 ```
 
+## API Documentation
+This project implements Open API (Swagger), so you can access full API documentation at this url
+
+http://localhost:8080/swagger-ui.html
+
+
 
