@@ -1,16 +1,41 @@
 version: '3.8'
 services:
+  app:
+    image: expenses:latest
+    build:
+      context: ../
+      dockerfile: ../Dockerfile
+    container_name: expenses-app
+    ports:
+      - '8080:8080'
+    restart: on-failure
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
   db:
     image: postgres:14.1-alpine
-    restart: always
+    container_name: expenses-db
+    restart: on-failure
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - HOST_NAME=localhost
+      - SERVER_PORT=5432
     ports:
       - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 volumes:
   db:
     driver: local

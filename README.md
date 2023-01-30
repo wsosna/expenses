@@ -9,11 +9,20 @@ Simple API to manage expenses with Its categories.
 - Docker
 
 ## Run locally
+### Docker
+To run application and Its database with one command you can use docker. 
+Just go to `/docker` directory and execute
+```shell
+docker-compose up
+```
+
 ### Setup database
-To setup database please go to directory `docker` and run
+To setup database and decide later to run application with docker or with local maven please go to directory `/docker` 
+and run
 ```shell
 docker-compose up -d db
 ```
+
 ### Run application
 Next you should go back to root folder and build project with
 ```shell
